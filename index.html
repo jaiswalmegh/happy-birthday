@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(45deg, #ff6b6b, #f9ca24, #1dd1a1, #54a0ff);
+      background-size: 400% 400%;
+      animation: bgMove 12s infinite alternate;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+
+    .container {
+      text-align: center;
+      color: #fff;
+      max-width: 85%;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8;}
+      100% { transform: scale(1.05); opacity: 1;}
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Hide second screen initially */
+    #screen2 { display: none; }
+  </style>
+</head>
+<body>
+  <!-- Screen 1 -->
+  <div class="container" id="screen1">
+    <h1>🎉 Happy Birthday, [Name]! 🎂</h1>
+    <p>Wishing you a day full of love, laughter, and happiness 🥳</p>
+    <button id="continueBtn">Continue ➡️</button>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="container" id="screen2">
+    <h1>💌 A Special Message</h1>
+    <p>
+      You broke me, but it’s fine if you are happy without me.  
+      I never kept my happiness as the top priority,  
+      but I would still love to have you back in my life,  
+      even if it’s only as a close friend.  
+
+      I have always shared everything with you,  
+      and your absence makes it so hard for me to survive.  
+      No matter what, you will always mean the world to me. 💖
+    </p>
+  </div>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const continueBtn = document.getElementById('continueBtn');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+
+    // Fire confetti on first load
+    function launchConfetti() {
+      const duration = 2 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          startVelocity: 30,
+          spread: 360,
+          origin: { x: Math.random(), y: Math.random() - 0.2 }
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    launchConfetti();
+
+    // Switch to screen 2 when continue is clicked
+    continueBtn.addEventListener('click', () => {
+      screen1.style.display = 'none';
+      screen2.style.display = 'block';
+      launchConfetti();
+    });
+  </script>
+</body>
+</html>
